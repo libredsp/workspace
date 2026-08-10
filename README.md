@@ -44,8 +44,8 @@ Afterwards:
 
 - Clone the repository:
 ```shell
-git clone git@github.com:LibreDSP/webapp.git
-cd webapp
+git clone git@github.com:LibreDSP/workspace.git
+cd workspace
 ```
 - Install the dependencies:
 ```shell
