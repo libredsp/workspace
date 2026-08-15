@@ -5,25 +5,25 @@ export const IIREquation = ({ filterCoefficients }) => {
   const [filterEquation, setFilterEquation] = useState('');
 
   const constructFilterEquationString = (filterCoefficients) => {
-    if(filterCoefficients.num.length == 0 && filterCoefficients.den.length == 0) return "y[n] = x[n]";
+    if (filterCoefficients.num.length === 0 && filterCoefficients.den.length === 0) return "y[n] = x[n]";
     let output = "y[n] = ";
     for (let i = 0; i < filterCoefficients.num.length; i++) {
       if (filterCoefficients.num[i] != 0) {
-          if(i == 0) output += (Number(filterCoefficients.num[i]).toFixed(3) + ("x[n]"));
-          else output += (Number(filterCoefficients.num[i]) < 0 ? " - " : " + ") + ( Number(filterCoefficients.num[i]) == 1 ? "" : String(Math.abs(Number(filterCoefficients.num[i])).toFixed(5))) + 
-            ( i == 0 ? "x[n]" : "x[n" + ("-" + String(i) + "]" ))
-          }
-        }
-
-    for (let i = 0; i < filterCoefficients.den.length; i++) {
+        if (i === 0) output += (Number(filterCoefficients.num[i]).toFixed(3) + "x[n]");
+        else output += (Number(filterCoefficients.num[i]) < 0 ? " - " : " + ") +
+          (Number(filterCoefficients.num[i]) == 1 ? "" : String(Math.abs(Number(filterCoefficients.num[i])).toFixed(5))) +
+          "x[n-" + String(i) + "]";
+      }
+    }
+    for (let i = 1; i < filterCoefficients.den.length; i++) {
       if (filterCoefficients.den[i] != 0) {
-        output += (Number(filterCoefficients.den[i]) > 0 ? " - " : " + ") + ( Number(filterCoefficients.den[i]) == 1 ? "" : String(Math.abs(Number(filterCoefficients.den[i])).toFixed(5))) + 
-          ( i == 0 ? "y[n]" : "y[n" + ("-" + String(i) + "]" ))
+        output += (Number(filterCoefficients.den[i]) > 0 ? " - " : " + ") +
+          (Number(filterCoefficients.den[i]) == 1 ? "" : String(Math.abs(Number(filterCoefficients.den[i])).toFixed(5))) +
+          "y[n-" + String(i) + "]";
       }
     }
     return output;
   }
-
 
   useEffect(() => {
       if(filterCoefficients) setFilterEquation(() => constructFilterEquationString(filterCoefficients));
