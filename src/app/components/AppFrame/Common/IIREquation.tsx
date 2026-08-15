@@ -5,6 +5,7 @@ export const IIREquation = ({ filterCoefficients }) => {
   const [filterEquation, setFilterEquation] = useState('');
 
   const constructFilterEquationString = (filterCoefficients) => {
+    console.log("computed num:", filterCoefficients.num);
     if (filterCoefficients.num.length === 0 && filterCoefficients.den.length === 0) return "y[n] = x[n]";
     let output = "y[n] = ";
     for (let i = 0; i < filterCoefficients.num.length; i++) {

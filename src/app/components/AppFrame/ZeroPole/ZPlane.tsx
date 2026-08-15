@@ -15,7 +15,7 @@ export const ZPlane = ({ points, updatePoint, updateMagnitudeResponse, updatePha
     const [poleZeroOption, setpoleZeroOption] = useState("zero");
     const [poleZeroUserEntered, setPoleZeroUserEntered] = useState("");
     /*
-      Converts the 2D pixel coordinates of the poles and zeros that the user 
+      Converts the 2D pixel coordinates of the poles and zeros that the user
       places on the Z-plane to their actual complex number values on the Z-plane.
     */
     const getTheActualPolesAndZeroesNumbersNotTheDotsOnConvas = (x) => {
@@ -25,19 +25,19 @@ export const ZPlane = ({ points, updatePoint, updateMagnitudeResponse, updatePha
 
     /*
  The following function receives the poles and zeroes of a transfer function
- and returns the IIR filter coefficients associated with the poles and zeroes. 
+ and returns the IIR filter coefficients associated with the poles and zeroes.
  How is this achieved? A transfer function defined by its poles and zeroes has the form:
- 
+
    ((z - m1)(z - m2)(z - m3)...)/((z - p1)(z - p2)...)
- 
- where m1, m2, ... are zeroes and p1, p2, p3, ... are the poles. To convert a transfer function expressed 
- in this form to the 'difference equation' form, we have to multiply the terms in the numerator and denominator 
+
+ where m1, m2, ... are zeroes and p1, p2, p3, ... are the poles. To convert a transfer function expressed
+ in this form to the 'difference equation' form, we have to multiply the terms in the numerator and denominator
  to reach a following that would look like:
- 
+
    (2z^(-n) + 2z^(-n-1) + ...)/(1 + z^(-1))
- 
+
  The following function does exactly that which multiplies the polynomials using the convolution operation.
- An interesteing detail: We can also use FFT to compute the convolution! FFT speeds up convolution when performance is an issue. 
+ An interesteing detail: We can also use FFT to compute the convolution! FFT speeds up convolution when performance is an issue.
  */
     const calculateFilterCoefficients = (polynomials) => {
         let num = [];
@@ -99,13 +99,13 @@ export const ZPlane = ({ points, updatePoint, updateMagnitudeResponse, updatePha
         context.arc(200, 200, 200, 0, 5 * Math.PI);
         context.stroke();
 
-        // Y-Axis                
+        // Y-Axis
         context.beginPath();
         context.moveTo(200, 0);
         context.lineTo(200, 400);
         context.stroke();
 
-        // X-Axis                
+        // X-Axis
         context.beginPath();
         context.moveTo(0, 200);
         context.lineTo(400, 200);
@@ -253,13 +253,13 @@ export const ZPlane = ({ points, updatePoint, updateMagnitudeResponse, updatePha
 
         let poles = [];
         let zeros = [];
-        for(let i = 0; i < tmp.length; i++) {
-            if(!tmp[i].isPoleSelected) { /* There is a bug here. It's negation should be checked here! */
+        for (let i = 0; i < tmp.length; i++) {
+            if (tmp[i].poleSelected) {
                 poles.push(tmp[i].point.x);
                 poles.push(tmp[i].point.y);
             } else {
                 zeros.push(tmp[i].point.x);
-                zeros.push(tmp[i].point.y);                
+                zeros.push(tmp[i].point.y);
             }
         }
 
