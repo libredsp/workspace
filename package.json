@@ -12,7 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@libredsp/core": "^0.1.6",
+    "@libredsp/core": "^0.1.7",
     "better-react-mathjax": "^2.0.3",
     "chart.js": "^4.4.5",
     "fft.js": "^4.0.4",

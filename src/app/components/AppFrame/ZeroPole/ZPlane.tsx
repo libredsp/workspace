@@ -262,7 +262,6 @@ export const ZPlane = ({ points, updatePoint, updateMagnitudeResponse, updatePha
                 zeros.push(tmp[i].point.y);
             }
         }
-
         let coefs = wasmTfToJsTf(zero_pole_placement_iir_filter_design_wasm( new Float64Array(poles), new Float64Array(zeros)));
         updateFilterCoefficients(coefs);
     }
