@@ -9,6 +9,9 @@ import { Periodogram } from './components/AppFrame/Periodogram/Periodogram';
 import { Prompt } from './components/AppFrame/Prompt/Prompt';
 import { WelchsEstimate } from './components/AppFrame/WelchsEstimate/WelchsEstimate';
 import { Simulation } from './components/AppFrame/Simulation/Simulation';
+
+import { BackgroundDenoise } from './components/AppFrame/AudioProcessing/BackgroundDenoise';
+
 import init from '@libredsp/core';
 
 export default function Home() {
@@ -29,6 +32,12 @@ export default function Home() {
 
     { placeholder: "Design & Simulation", name: "title_sim" },
     { placeholder: "Hybrid Simulation", name: "sensor_fusion_simulation" },
+
+    { placeholder: "separator", name: "seperator" },
+    { placeholder: "Audio", name: "title_audio" },
+    { placeholder: "Background Noise Removal", name: "background_noise_removal" },
+
+
     { placeholder: "bottom_elements", name: "bottom_elements" },
     { placeholder: "separator", name: "seperator" },
     { placeholder: "Utilites", name: "title_utlities" },
@@ -53,13 +62,15 @@ export default function Home() {
       case "least_square_linear_phase_FIR":
         return <LeastSqaureLinearPhaseFIRDesign />;
       case "parks_mcclellan":
-        return <ParksMcclellan />;        
+        return <ParksMcclellan />;
       case "periodogram":
         return <Periodogram />
       case "welchs_estimate":
         return <WelchsEstimate />
       case "sensor_fusion_simulation":
         return <Simulation />
+      case "background_noise_removal":
+        return <BackgroundDenoise />
       case "prompt":
         return <Prompt />;
       case "help":
@@ -131,7 +142,7 @@ export default function Home() {
             return (
               <h1
                 key={`prompt-${item.name}-${index}`}
-                className={`flex font-bold h-10 p-2 text-sm w-48 
+                className={`flex font-bold h-10 p-2 text-sm w-48
                   ${selectedItem.name === item.name ? "bg-white hover:bg-gray-50 shadow" : ""}`}
               >
                 <p className="font-bold">{item.placeholder}</p>
@@ -141,7 +152,7 @@ export default function Home() {
             return (
               <button
                 key={`prompt-${item.name}-${index}`}
-                className={`flex h-10 p-2 text-sm rounded w-48 
+                className={`flex h-10 p-2 text-sm rounded w-48
                   ${selectedItem.name === item.name ? "bg-white hover:bg-gray-50 shadow" : ""}`}
                 onClick={() => setSelectedItem(item)}
               >
