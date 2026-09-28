@@ -11,6 +11,7 @@ import { WelchsEstimate } from './components/AppFrame/WelchsEstimate/WelchsEstim
 import { Simulation } from './components/AppFrame/Simulation/Simulation';
 
 import { BackgroundDenoise } from './components/AppFrame/AudioProcessing/BackgroundDenoise';
+import { Mixing } from './components/AppFrame/AudioProcessing/Mixing';
 
 import init from '@libredsp/core';
 
@@ -36,6 +37,7 @@ export default function Home() {
     { placeholder: "separator", name: "seperator" },
     { placeholder: "Audio", name: "title_audio" },
     { placeholder: "Background Noise Removal", name: "background_noise_removal" },
+    { placeholder: "Mixing", name: "audio_mixing" },
 
 
     { placeholder: "bottom_elements", name: "bottom_elements" },
@@ -71,6 +73,8 @@ export default function Home() {
         return <Simulation />
       case "background_noise_removal":
         return <BackgroundDenoise />
+      case "audio_mixing":
+        return <Mixing />
       case "prompt":
         return <Prompt />;
       case "help":
