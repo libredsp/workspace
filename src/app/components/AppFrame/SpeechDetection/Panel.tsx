@@ -184,7 +184,7 @@ export const Panel = ({ model, updateModel }: PanelProps) => {
     <div className="flex flex-col self-start bg-gray-50 p-4 my-5 mx-2 rounded-2xl shadow-md w-full max-w-5xl">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Speech detection</h2>
-        <Infobox text="Load the logistic regression model saved as model.txt and a WAV file. Speech regions are detected using the same frame features, smoothing, threshold, and minimum-duration rules as the Rust VAD library." />
+        <Infobox text="Load the logistic regression model saved as model.txt and a WAV file. Speech regions are detected using frame features such as zero-crossing rate (ZCR), spectral centroid, log energy etc." />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
