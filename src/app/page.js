@@ -1,4 +1,4 @@
-"use client"; // This is a client component 👈🏽
+"use client";
 import React from 'react';
 import { ZeroPole } from './components/AppFrame/ZeroPole/ZeroPole';
 import { FIRFilterDesign } from './components/AppFrame/FIRFilterDesign/FIRFilterDesign';
@@ -12,6 +12,7 @@ import { Simulation } from './components/AppFrame/Simulation/Simulation';
 
 import { BackgroundDenoise } from './components/AppFrame/AudioProcessing/BackgroundDenoise';
 import { Mixing } from './components/AppFrame/AudioProcessing/Mixing';
+import { SpeechDetection } from './components/AppFrame/SpeechDetection/SpeechDetection';
 
 import init from '@libredsp/core';
 
@@ -38,6 +39,7 @@ export default function Home() {
     { placeholder: "Audio", name: "title_audio" },
     { placeholder: "Background Noise Removal", name: "background_noise_removal" },
     { placeholder: "Mixing", name: "audio_mixing" },
+    { placeholder: "Speech detection", name: "speech_detection" },
 
 
     { placeholder: "bottom_elements", name: "bottom_elements" },
@@ -75,6 +77,8 @@ export default function Home() {
         return <BackgroundDenoise />
       case "audio_mixing":
         return <Mixing />
+      case "speech_detection":
+        return <SpeechDetection />
       case "prompt":
         return <Prompt />;
       case "help":
@@ -140,7 +144,7 @@ export default function Home() {
   return (
     <div className="relative flex h-screen z-20">
       {/* Sidebar */}
-      <aside className="fixed flex flex-col px-5 py-4 border-r border-slate-200 z-30 bg-white h-full">
+      <aside className="fixed flex flex-col px-5 py-4 border-r border-slate-200 z-30 bg-white h-full overflow-y-auto">
         {items.map((item, index) => {
           if (item.name.match("title.*")) {
             return (
