@@ -25,10 +25,10 @@ export default function Home() {
 
   const items = [
     { placeholder: "Filter Design", name: "title_filter_design" },
-    { placeholder: "Zero-pole placement", name: "zero_pole" },
-    { placeholder: "Windowing method", name: "fir_filter_design" },
-    { placeholder: "Analog-to-digital transform", name: "iir_filter_design" },
-    { placeholder: "Linear phase FIR-LS", name: "least_square_linear_phase_FIR" },
+    { placeholder: "Zero-pole Placement", name: "zero_pole" },
+    { placeholder: "Windowing Method", name: "fir_filter_design" },
+    { placeholder: "Analog-to-digital Transform", name: "iir_filter_design" },
+    { placeholder: "Linear Phase FIR-LS", name: "least_square_linear_phase_FIR" },
     { placeholder: "Parks-Mcclellan Algorithm", name: "parks_mcclellan" },
     { placeholder: "separator", name: "seperator" },
 
@@ -39,7 +39,7 @@ export default function Home() {
     { placeholder: "Audio", name: "title_audio" },
     { placeholder: "Background Noise Removal", name: "background_noise_removal" },
     { placeholder: "Mixing", name: "audio_mixing" },
-    { placeholder: "Speech detection", name: "speech_detection" },
+    { placeholder: "Speech Detection", name: "speech_detection" },
 
 
     { placeholder: "bottom_elements", name: "bottom_elements" },
