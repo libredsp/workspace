@@ -10,6 +10,7 @@ const fmt = (t: number) => `${Math.floor(t / 60)}:${(t % 60).toFixed(2).padStart
 
 export const Panel = ({ model, updateModel }: PanelProps) => {
   const [modelName, setModelName] = useState("");
+  const [presetMenuOpen, setPresetMenuOpen] = useState(false);
   const [audioName, setAudioName] = useState("");
   const [samples, setSamples] = useState<Float64Array | null>(null);
   const [sampleRate, setSampleRate] = useState(0);
@@ -64,6 +65,29 @@ export const Panel = ({ model, updateModel }: PanelProps) => {
       }
     };
     reader.readAsText(file);
+  };
+
+  const loadPresetModel = (name: string) => {
+    // Trained weights from the supplied model.txt file (bias followed by 7 feature weights).
+    const presets: Record<string, number[]> = {
+      "Default speech model": [
+        0.2202583032224751,
+        0.254838161999165,
+        -0.15371771753902885,
+        -0.1192916037375652,
+        -0.25294055940610666,
+        -0.37888397598765633,
+        1.9252389284397944,
+        0.06410521503912284,
+      ],
+    };
+    const weights = presets[name];
+    if (!weights) return;
+    updateModel({ weights });
+    setModelName(name);
+    setError("");
+    setSegments([]);
+    setPresetMenuOpen(false);
   };
 
   const loadAudio = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,12 +213,35 @@ export const Panel = ({ model, updateModel }: PanelProps) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <div className="bg-white border border-gray-200 rounded-xl p-3">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Model file (model.txt)</label>
-          <input type="file" accept=".txt,text/plain" onChange={loadModel}
-            className="w-full text-sm text-gray-700 border border-gray-300 rounded-md p-2 bg-white" />
+          <label className="block text-sm font-medium text-gray-700 mb-2">Model file (as .txt)</label>
+          <div className="flex flex-wrap items-center gap-2">
+            <input type="file" accept=".txt,text/plain" onChange={loadModel}
+              className="min-w-0 flex-1 text-sm text-gray-700 border border-gray-300 rounded-md p-2 bg-white" />
+            <div className="relative">
+              <button type="button" onClick={() => setPresetMenuOpen(open => !open)}
+                aria-haspopup="menu" aria-expanded={presetMenuOpen}
+                className="h-10 inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-700 hover:bg-gray-50">
+                Pretrained model <span aria-hidden="true">▾</span>
+              </button>
+              {presetMenuOpen && (
+                <div role="menu" className="absolute right-0 top-full z-20 mt-1 min-w-52 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
+                  <button type="button" role="menuitem" onClick={() => loadPresetModel("Default speech model")}
+                    className="block w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+                    Default speech model
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
           <p className={`text-xs mt-2 ${model ? "text-green-700" : "text-gray-500"}`}>
             {model ? `${modelName} · ${model.weights.length} weights loaded` : "Choose a trained model file"}
           </p>
+          <div className="mt-3 rounded-md border border-gray-200 bg-gray-50">
+            <div className="border-b border-gray-200 px-3 py-2 text-xs font-medium text-gray-600">Model weights</div>
+            <pre className="h-32 overflow-y-auto overflow-x-auto p-3 text-xs text-gray-700 whitespace-pre-wrap break-all">
+              {model ? model.weights.map((weight, index) => `${index}: ${weight}`).join("\n") : "Load a model to view its weights."}
+            </pre>
+          </div>
         </div>
         <div className="bg-white border border-gray-200 rounded-xl p-3">
           <label className="block text-sm font-medium text-gray-700 mb-2">WAV audio file</label>
